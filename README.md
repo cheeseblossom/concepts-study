@@ -19,4 +19,5 @@
   - [Spring](./java/spring/spring.md)
   - [JPA](./java/jpa/jpa.md)
   - [Test](./java/test/test.md)
+- [**JavaScript**](./javascript/javascript.md)
 - [Gradle](./gradle/gradle.md)
