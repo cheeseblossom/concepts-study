@@ -1,6 +1,7 @@
 # Algorithm
 
 ## 📖 목록
+- [BFS/DFS](#bfsdfs)
 - [Sort Algorithm Time Complexity](#sort-algorithm-time-complexity)
 - [Insertion Sort](#insertion-sort)
 - [Selection Sort](#selection-sort)
@@ -9,6 +10,113 @@
 - [Merge Sort](#merge-sort)
 - [Heap Sort](#heap-sort)
 - [Binary Search](#binary-search)
+
+## BFS/DFS
+### BFS
+Breadth First Search
+
+Queue를 사용하여 최단 경로를 찾을 때
+
+```java
+class Graph {
+  private int V; // 노드의 개수
+  private LinkedList<Integer> adj[]; // 인접 리스트
+
+  // 생성자
+  Graph(int v) {
+    V = v;
+    adj = new LinkedList[v];
+    for (int i=0; i<v; ++i) {
+      adj[i] = new LinkedList();
+    }
+  }
+
+  // 노드 연결 v -> w
+  void addEdge(int v, int w) {
+    adj[v].add(w);
+  }
+
+  // s 노드를 시작으로 BFS
+  void BFS(int s) {
+    // 1. 노드 방문 여부 판단
+    boolean visited[] = new boolean[V];
+    // 2. BFS를 위한 Queue
+    LinkedList<Integer> queue = new LinkedList<Integer>();
+    // 3. 현재 노드를 방문한 것으로 표시, Queue 추가
+    visited[s] = true;
+    queue.add(s);
+    // 4. Queue가 빌 때까지 반복
+    while (queue.size() != 0) {
+      // 4-1. 방문한 노드를 Queue에서 제거
+      s = queue.poll();
+      System.out.println(s + " ");
+      // 4-2. 방문한 노드와 인접한 모든 노드를 가져온다.
+      Iterator<Integer> i = adj[s].listIterator();
+      while (i.hasNext()) {
+        int n = i.next();
+        // 4-3. 방문하지 않은 노드라면 방문한 것으로 표시, Queue 추가
+        if (!visited[n]) {
+          visited[n] = true;
+          queue.add(n);
+        }
+      }
+    }
+  }
+}
+```
+
+### DFS
+Depth First Search
+
+모든 노드를 방문하고자 할 때
+
+```java
+class Graph {
+  private int V; // 노드의 개수
+  private LinkedList<Integer> adj[]; // 인접 리스트
+
+  // 생성자
+  Graph(int v) {
+    V = v;
+    adj = new LinkedList[v];
+    for (int i=0; i<v; ++i) {
+      adj[i] = new LinkedList();
+    }
+  }
+
+  // 노드 연결 v -> w
+  void addEdge(int v, int w) {
+    adj[v].add(w);
+  }
+
+  void DFSUtil(int v, boolean visited[]) {
+    visited[v] = true;
+    System.out.println(v + " ");
+
+    Iterator<Integer> i = adj[v].listIterator();
+    while (i.hasNext()) {
+      int n = i.next();
+      if (!visited[n]) {
+        DFSUtil(n, visited);
+      }
+    }
+  }
+
+  void DFS(int v) {
+    boolean visited[] = new boolean[V];
+    DFSUtil(v, visited);
+  }
+
+  void DFS() {
+    boolean visited[] = new boolean[V];
+    for (int i=0; i<V; ++i) {
+      if (!visited[i]) {
+        DFSUtil(i, visited);
+      }
+    }
+  }
+}
+```
 
 ## Sort Algorithm Time Complexity
 Name | Best | Avg | Worst
